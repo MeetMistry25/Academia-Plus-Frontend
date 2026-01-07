@@ -16,7 +16,7 @@
                     <h2 class="text-2xl font-bold font-display">{{student().name}}</h2>
                     <p class="text-slate-400 text-sm mb-6">{{student().email}}</p>
 
-                    <div class="grid grid-cols-2 w-full gap-4 pt-6 border-t border-slate-50">
+                    <!-- <div class="grid grid-cols-2 w-full gap-4 pt-6 border-t border-slate-50">
                         <div class="text-center">
                             <div class="text-xl font-black text-slate-800">{{student().credits}}</div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Credits</div>
@@ -25,12 +25,21 @@
                             <div class="text-xl font-black text-slate-800">{{student().joined}}</div>
                             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Since</div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <button class="btn btn-primary btn-block rounded-xl mt-8">Edit Profile</button>
+                    <div class="flex flex-col gap-3 mt-8">
+                        <button *ngIf="!isEditing()" (click)="toggleEdit()"
+                            class="btn btn-primary btn-block rounded-xl">Edit Profile</button>
+                        <ng-container *ngIf="isEditing()">
+                            <button (click)="saveProfile()" class="btn btn-primary btn-block rounded-xl">Save
+                                Changes</button>
+                            <button (click)="cancelEdit()"
+                                class="btn btn-ghost btn-block rounded-xl text-slate-500">Cancel</button>
+                        </ng-container>
+                    </div>
                 </div>
 
-                <div class="card-academic p-8">
+                <!-- <div class="card-academic p-8">
                     <h3 class="text-lg font-bold mb-6 font-display">Notifications</h3>
                     <div class="space-y-4">
                         <div *ngFor="let note of notifications"
@@ -56,7 +65,72 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+                 <!-- Profile Details -->
+                <section class="card-academic p-8">
+                    <h3 class="text-xl font-bold font-display mb-6">Personal Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Name -->
+                        <div class="form-control">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Full
+                                    Name</span></label>
+                            <div *ngIf="!isEditing()" class="font-bold text-slate-800 text-lg">{{student().name}}</div>
+                            <input *ngIf="isEditing()" type="text" [(ngModel)]="editData.name"
+                                class="input input-bordered w-full rounded-lg" />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-control">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Email
+                                    Address</span></label>
+                            <div class="font-bold text-slate-800 text-lg">{{student().email}}</div>
+                            <div *ngIf="isEditing()" class="text-xs text-slate-400 mt-1">Email cannot be changed.</div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-control">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Phone
+                                    Number</span></label>
+                            <div *ngIf="!isEditing()" class="font-bold text-slate-800 text-lg">{{student().phone ||
+                                '-'}}</div>
+                            <input *ngIf="isEditing()" type="tel" [(ngModel)]="editData.phone"
+                                class="input input-bordered w-full rounded-lg" placeholder="+1 234 567 8900" />
+                        </div>
+
+                        <!-- Student ID -->
+                        <div class="form-control">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Student
+                                    ID</span></label>
+                            <div *ngIf="!isEditing()" class="font-bold text-slate-800 text-lg">{{student().studentId ||
+                                '-'}}</div>
+                            <input *ngIf="isEditing()" type="text" [(ngModel)]="editData.studentId"
+                                class="input input-bordered w-full rounded-lg" />
+                        </div>
+
+                        <!-- Major/Branch -->
+                        <div class="form-control">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Department /
+                                    Major</span></label>
+                            <div *ngIf="!isEditing()" class="font-bold text-slate-800 text-lg">{{student().major ||
+                                '-'}}</div>
+                            <input *ngIf="isEditing()" type="text" [(ngModel)]="editData.major"
+                                class="input input-bordered w-full rounded-lg" />
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="form-control md:col-span-2">
+                            <label class="label"><span class="label-text font-bold text-slate-500">Bio</span></label>
+                            <div *ngIf="!isEditing()" class="text-slate-600 leading-relaxed">{{student().bio || 'No bio
+                                provided.'}}</div>
+                            <textarea *ngIf="isEditing()" [(ngModel)]="editData.bio"
+                                class="textarea textarea-bordered w-full h-24 rounded-xl"
+                                placeholder="Tell us about yourself..."></textarea>
+                        </div>
+                    </div>
+                </section>
+
+
             </aside>
 
             <!-- Main Activity -->
@@ -64,9 +138,9 @@
                 <!-- Welcome Section -->
                 <div>
                     <h1 class="text-4xl font-bold font-display mb-2">Hello, {{student().name.split(' ')[0]}}! 👋</h1>
-                    <p class="text-slate-400">You have completed 45% of your semester goals. Keep it up!</p>
                 </div>
 
+               
                 <!-- Enrolled Courses -->
                 <section>
                     <div class="flex justify-between items-center mb-8">

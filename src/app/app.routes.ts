@@ -7,6 +7,7 @@ import { Profile } from './components/profile/profile';
 import { CourseDetails } from './components/course-details/course-details';
 import { FacultyDetails } from './components/faculty-details/faculty-details';
 import { AdminPanel } from './components/admin-panel/admin-panel';
+import { Mylearning } from './components/mylearning/mylearning';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -18,4 +19,5 @@ export const routes: Routes = [
     { path: 'faculty/:id', component: FacultyDetails },
     { path: 'profile', component: Profile },
     { path: 'admin', component: AdminPanel },
+    {path:'mylearning', component:Mylearning}
 ];

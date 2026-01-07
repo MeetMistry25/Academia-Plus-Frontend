@@ -29,7 +29,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold">Rich Learning Library</h4>
-                        <p class="text-sm text-white/60 text-balance">Access thousands of specialized courses and
+                        <p class="text-sm text-white/60 text-balance">Access specialized courses and
                             resources.</p>
                     </div>
                 </div>
@@ -74,6 +74,7 @@
                 <button (click)="role.set('admin')" [class.bg-white]="role() === 'admin'"
                     [class.shadow-lg]="role() === 'admin'"
                     class="flex-1 py-2 text-sm font-bold rounded-xl transition-all">Admin</button>
+
             </div>
 
             <!-- Error Message -->
@@ -112,7 +113,7 @@
                     </div>
                 </div>
 
-                <div class="form-control">
+                <div *ngIf="mode() === 'login' || role() === 'student'" class="form-control">
                     <label class="label"><span class="label-text font-bold">Email Address</span></label>
                     <input type="email" [(ngModel)]="formData.email" name="email" placeholder="name@college.edu"
                         class="input input-bordered h-14 bg-base-200/50 border-slate-100 rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all w-full"
@@ -125,7 +126,6 @@
                         class="textarea textarea-bordered bg-base-200/50 border-slate-100 rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all w-full h-24"
                         required></textarea>
                 </div>
-
                 <!-- Info for non-student signup -->
                 <div *ngIf="mode() === 'signup' && role() !== 'student'"
                     class="p-6 bg-amber-50 rounded-2xl border border-amber-100 text-amber-800 text-sm font-medium">
@@ -133,7 +133,8 @@
                     registration.
                 </div>
 
-                <div class="form-control">
+
+                <div *ngIf="mode() === 'login' || role() === 'student'" class="form-control">
                     <label class="label">
                         <span class="label-text font-bold">Password</span>
                         <a *ngIf="mode() === 'login'"
@@ -163,24 +164,27 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="isLoading() || (mode() === 'signup' && role() !== 'student')"
+                <button *ngIf="mode() === 'login' || role() === 'student'" type="submit" [disabled]="isLoading()"
                     class="btn btn-primary h-14 w-full rounded-xl text-lg shadow-xl shadow-primary/20 mt-4">
                     <span *ngIf="isLoading()" class="loading loading-spinner"></span>
                     {{ mode() === 'login' ? 'Sign In' : 'Create Account' }}
                 </button>
 
-                <div class="divider text-slate-400 text-xs uppercase tracking-widest font-bold my-8">Or continue with
-                </div>
+                <div *ngIf="mode() === 'login' || role() === 'student'">
+                    <div class="divider text-slate-400 text-xs uppercase tracking-widest font-bold my-8">Or continue
+                        with
+                    </div>
 
-                <div class="flex gap-4">
-                    <button type="button"
-                        class="btn btn-outline flex-1 h-14 rounded-xl border-slate-200 font-bold gap-2">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" /> Google
-                    </button>
-                    <button type="button"
-                        class="btn btn-outline flex-1 h-14 rounded-xl border-slate-200 font-bold gap-2">
-                        <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5" /> Meta
-                    </button>
+                    <div class="flex gap-4">
+                        <button type="button"
+                            class="btn btn-outline flex-1 h-14 rounded-xl border-slate-200 font-bold gap-2">
+                            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" /> Google
+                        </button>
+                        <button type="button"
+                            class="btn btn-outline flex-1 h-14 rounded-xl border-slate-200 font-bold gap-2">
+                            <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" class="w-5 h-5" /> Meta
+                        </button>
+                    </div>
                 </div>
 
                 <p class="text-center text-sm font-medium text-slate-500 mt-10">

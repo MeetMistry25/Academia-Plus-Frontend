@@ -57,6 +57,10 @@ export class ApiService {
         return this.http.post(`${this.apiUrl}/User/enroll`, { userEmail: email, courseId });
     }
 
+    updateUser(id: string, user: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/User/${id}`, user);
+    }
+
     private mapFaculty(f: Faculty): Faculty {
         return {
             ...f,
